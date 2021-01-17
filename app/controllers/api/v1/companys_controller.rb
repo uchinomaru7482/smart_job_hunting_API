@@ -2,7 +2,7 @@ module Api
   module V1
     class CompanysController < ApplicationController
       def index
-        companys = Company.all
+        companys = current_user.companys
         render json: companys
       end
     

@@ -7,10 +7,10 @@ module Api
       end
     
       def create
-        company = Company.new(company_params)
+        company = current_user.companys.build(company_params)
     
         if company.save
-          render json: company
+          render json: { status: :created, company: company }
         else
           render json: company.errors
         end

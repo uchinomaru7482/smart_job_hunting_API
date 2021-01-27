@@ -8,7 +8,6 @@ module Api
     
       def create
         company = current_user.companys.build(company_params)
-    
         if company.save
           render json: { status: :created, company: company }
         else
@@ -17,9 +16,17 @@ module Api
       end
     
       def update
+        company = Company.find(params[:id])
+        if company.update(company_params)
+          render json: { status: :created, company: company }
+        else
+          render json: company.errors
+        end
       end
     
-      def delete
+      def destroy
+        Company.find(params[:id]).destroy
+        render json: { status: :deleted }
       end
     
       private
